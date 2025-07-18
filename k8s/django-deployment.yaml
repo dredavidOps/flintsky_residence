@@ -27,6 +27,7 @@ spec:
   selector:
     app: django
   ports:
+    - name: http
     - protocol: TCP
       port: 8000
       targetPort: 8000
@@ -51,3 +52,17 @@ spec:
                 name: django-service
                 port:
                   number: 8000
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: django-api-monitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: django
+  endpoints:
+    - port: http
+      path: /metrics/
+      interval: 15s
