@@ -38,3 +38,5 @@ build/
 # Ignore OS files
 .DS_Store
 Thumbs.db
+__pycache__/
+backend/**/__pycache__/
